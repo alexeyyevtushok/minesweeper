@@ -61,14 +61,18 @@ class Board extends Component {
 
 const bombChecker = (array,i,j) => {
   var bombCounter=0;
-  if(i+1<4 && j+1<4 && i-1>=0 && j-1>=0){
-    if((array[i][j+1]==='bomb' && j+1<4) || 
-       (array[i][j-1]==='bomb' && j-1>=0) || 
-       (array[i+1][j]==='bomb' && i+1<4) ||
-       (array[i-1][j]==='bomb' && i-1>=0)){
-      bombCounter++;
+    if((j+1<4 && array[i][j+1]==='bomb') ||  
+       (j-1>=0 && array[i][j-1]==='bomb') ||  
+       (i+1<4 && array[i+1][j]==='bomb') ||
+       (i-1>=0 && array[i-1][j]==='bomb')){
+          bombCounter++;
+          if((j+1<4 && array[i][j+1]==='bomb') ||  
+          (j-1>=0 && array[i][j-1]==='bomb') ||  
+          (i+1<4 && array[i+1][j]==='bomb') ||
+          (i-1>=0 && array[i-1][j]==='bomb')){
+        bombCounter++;
+      }
     }
-  }
     return bombCounter;
   }
 
