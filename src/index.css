@@ -6,9 +6,60 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: whitesmoke;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.main{
+  text-align: center;
+  margin:0 auto;
+}
+.boardRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+.cell {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 40px;
+  display:inline-block;
+  background: #DCDCDC;
+  border:1px solid whitesmoke;
+}
+
+.cell.clicked {
+  background: #c1c1c1;
+}
+
+.cell.bomb {
+  background: maroon;
+}
+
+.cell:hover {
+  cursor:pointer;
+}
+
+button {
+  padding: 15px 40px;
+  background: #1E90FF;
+  border:none;
+  border-radius: 10%;
+  color:whitesmoke;
+  text-transform: uppercase;
+  font-size:15px;
+  font-weight: bold;
+  outline:0;
+  margin-bottom: 10px;
+}
+
+button:hover {
+  cursor: pointer;
 }
