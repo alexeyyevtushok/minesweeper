@@ -13,10 +13,14 @@ class Board extends Component {
 
     this.state = {
       board: [
-        [0,0,0,0],
-        [0,0,'bomb',0],
-        [0,0,0,0],
-        [0,0,'bomb',0],
+        [],
+        [null,'bomb',null,'bomb'],
+        [],
+        [null,'bomb','bomb'],
+        [],
+        [null,'bomb'],
+        [],
+        [null,'bomb'],
       ]
     }
   }
@@ -33,19 +37,21 @@ class Board extends Component {
     console.log(bombChecker(this.state.board,i,j));
   }
 
+
   renderCell(i,j){
     return <Cell 
       value={this.state.board[i][j]}
       key={this.getKey()}
       onClick={()=> this.handleClick(i,j)} 
+      bombs = {bombChecker(this.state.board,i,j)}
       />
   }
 
   render() {
     const grid = [];
-    for(let i=0;i<4;i++){
+    for(let i=0;i<8;i++){
       const row = [];
-      for(let j=0;j<4;j++){
+      for(let j=0;j<8;j++){
         row.push(this.renderCell(i,j));
       }
       grid.push(<div className="boardRow" key={i}>{row}</div>)
@@ -59,20 +65,25 @@ class Board extends Component {
   }
 }
 
-const bombChecker = (array,i,j) => {
-  var bombCounter=0;
-    if((j+1<4 && array[i][j+1]==='bomb') ||  
-       (j-1>=0 && array[i][j-1]==='bomb') ||  
-       (i+1<4 && array[i+1][j]==='bomb') ||
-       (i-1>=0 && array[i-1][j]==='bomb')){
-          bombCounter++;
-          if((j+1<4 && array[i][j+1]==='bomb') ||  
-          (j-1>=0 && array[i][j-1]==='bomb') ||  
-          (i+1<4 && array[i+1][j]==='bomb') ||
-          (i-1>=0 && array[i-1][j]==='bomb')){
-        bombCounter++;
-      }
-    }
+
+  const bombChecker = (array,i,j) => {
+    let bombCounter = 0;
+    if(j+1<8 && array[i][j+1] === 'bomb')
+      bombCounter++;
+    if(j-1>=0 && array[i][j-1] === 'bomb')
+      bombCounter++;
+    if(i+1<8 && array[i+1][j] === 'bomb')
+      bombCounter++;
+    if(i-1>=0 && array[i-1][j] === 'bomb')
+      bombCounter++;
+    if(i+1<8 && j-1>=0 && array[i+1][j-1] === 'bomb')
+      bombCounter++;
+    if(i+1<8 && j+1<8 && array[i+1][j+1] === 'bomb')
+      bombCounter++;
+    if(i-1>=0 && j+1<8 && array[i-1][j+1] === 'bomb')
+      bombCounter++;
+    if(i-1>=0 && j-1>=0 && array[i-1][j-1] === 'bomb')
+      bombCounter++;
     return bombCounter;
   }
 

@@ -8,11 +8,16 @@ function Cell(props){
   if(props.value !== undefined && props.value === 'bomb') {
     playerClass += ' bomb';
   }
+
+  let cellValue;
+  if(props.value === 'clicked' && props.bombs>0)
+    cellValue = props.bombs;
+
   return(
     <div 
     className={playerClass} 
     onClick={props.onClick}
-    ></div>
+    >{cellValue}</div>
   );
 }
 

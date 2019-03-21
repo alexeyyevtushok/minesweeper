@@ -33,6 +33,8 @@ code {
   display:inline-block;
   background: #DCDCDC;
   border:1px solid whitesmoke;
+  color:maroon;
+  font-weight: bold;
 }
 
 .cell.clicked {
