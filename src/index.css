@@ -65,3 +65,8 @@ button {
 button:hover {
   cursor: pointer;
 }
+
+.bombDetected{
+  background:#1E90FF!important;
+  content: '';
+}
