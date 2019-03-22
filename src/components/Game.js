@@ -91,7 +91,7 @@ class Game extends Component {
         <div className="main">
           <Header onClicked={this.gameChanger} cstate={this.state.game} />
           <form className="gameEnd">
-          <p>Default:Normal</p>
+          <p>Default: Normal</p>
           <hr></hr>
             <div className="gameEndLabel">Choose game style: </div>
               {this.addInput("Easy")}
