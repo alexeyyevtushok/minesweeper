@@ -44,7 +44,7 @@ class Game extends Component {
             bombs:40
           });
           break;
-        case "Imposible":
+        case "Impossible":
           this.setState({
             column: 16,
             row: 32,
@@ -96,7 +96,7 @@ class Game extends Component {
             <div className="gameEndLabel">Choose game style: </div>
               {this.addInput("Easy")}
               {this.addInput("Hard")}
-              {this.addInput("Imposible")}
+              {this.addInput("Impossible")}
           </form>
         </div>
       );
