@@ -13,6 +13,9 @@ function boardCreation(columns,rows,bombs){
     }
   }
   for(let b =0;b<bombs;b++){
+    if(cellsInfo[randomInteger(0,columns-1)][randomInteger(0,rows-1)]==='bomb'){
+      cellsInfo[randomInteger(0,columns-1)][randomInteger(0,rows-1)]='bomb';
+    }
     cellsInfo[randomInteger(0,columns-1)][randomInteger(0,rows-1)]='bomb';
   }
   console.log(cellsInfo)
