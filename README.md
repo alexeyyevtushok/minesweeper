@@ -1,10 +1,10 @@
 ## Rules
 
-`1.`The number in the cell shows how many mines are hidden around this cell. This number will help you understand where the safe cells are and where the bombs are.
-`2.`If there is an empty cell next to the open cell, it will open automatically.
-`3.`If you opened a cell with a mine, the game is lost .
-`4.`To mark the cell in which the bomb is located, right-click on it.
-`5.`The game continues until you mark all mined cells.
+`1.`The number in the cell shows how many mines are hidden around this cell. This number will help you understand where the safe cells are and where the bombs are.<br>
+`2.`If there is an empty cell next to the open cell, it will open automatically.<br>
+`3.`If you opened a cell with a mine, the game is lost .<br>
+`4.`To mark the cell in which the bomb is located, right-click on it.<br>
+`5.`The game continues until you mark all mined cells.<br>
 
 ## How to install
 
