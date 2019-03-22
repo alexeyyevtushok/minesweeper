@@ -28,7 +28,7 @@ code {
 .cell {
   width: 30px;
   height: 30px;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 30px;
   display:inline-block;
   background: #DCDCDC;
@@ -45,9 +45,12 @@ code {
 .cell.bomb {
   background: brown;
   color:black;
+  -webkit-animation: bomb-detonation 3s ease;
+  -moz-animation: bomb-detonation 3s ease;
+  animation: bomb-detonation 3s ease;
 }
 .cell.bomb::before{
-  content: '☢';
+  content: '💣';
 }
 
 .cell:hover {
@@ -81,7 +84,28 @@ button:hover {
 }
 
 .bombDetected::before{
-  content: '✔';
+  content: '📌';
+}
+
+@keyframes bomb-detonation{
+  0% {
+    height: 30px;
+    width: 30px;
+    opacity: 0.35;
+    position: relative;
+  }
+  50% {
+    height: 100px;
+    width: 100px;
+    margin-left: -380px;
+    margin-top: 10px;
+  }
+  100% {
+    height: 30px;
+    width: 30px;
+    opacity: 0;
+    position: relative;
+  }
 }
 
 @keyframes click-wave {
