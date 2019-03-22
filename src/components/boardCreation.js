@@ -14,10 +14,12 @@ function boardCreation(columns, rows, bombs) {
   }
   for (let b = 0; b < bombs; b++) {
     //if i and j take the same value double times
-    if (cellsInfo[randomInteger(0, columns - 1)][randomInteger(0, rows - 1)] === 'bomb') {
-      cellsInfo[randomInteger(0, columns - 1)][randomInteger(0, rows - 1)] = 'bomb';
+    const randCol = randomInteger(0, columns - 1);
+    const randRow = randomInteger(0, rows - 1);
+    if (cellsInfo[randCol][randRow] === 'bomb') {
+      b--;
     }
-    cellsInfo[randomInteger(0, columns - 1)][randomInteger(0, rows - 1)] = 'bomb';
+    cellsInfo[randCol][randRow] = 'bomb';
   }
   console.log(cellsInfo)
   return cellsInfo;
