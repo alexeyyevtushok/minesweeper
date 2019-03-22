@@ -155,8 +155,9 @@ class Board extends Component {
     //consts
     const grid = [];
     var flagAmount = this.props.cstate.bombs - this.state.clicked;
-    var classWin = 'gameWin';
     var isWin = this.state.end === 'win' ? 'Win' : 'Lose';
+
+    var classWin = 'gameWin';
     if(this.state.end==='win' || this.state.end==='lose'){
       classWin+= ' displayWin';
     }
