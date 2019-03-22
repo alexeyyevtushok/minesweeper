@@ -1,4 +1,4 @@
-function detectionCreation(columns,rows,bombs){
+function detectionCreation(columns,rows){
   const cellsInfo =[];
   for (let i = 0; i <columns; i++) {
     cellsInfo[i] = [];

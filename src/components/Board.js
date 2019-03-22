@@ -12,7 +12,7 @@ class Board extends Component {
     super(props)
     this.state = {
       board: boardCreation(props.cstate.column,props.cstate.row,props.cstate.bombs), // array of left click
-      detection: detectionCreation(props.cstate.column,props.cstate.row,props.cstate.bombs), // array of right click
+      detection: detectionCreation(props.cstate.column,props.cstate.row), // array of right click
       end:'play',
       clicked:0
     }
@@ -129,7 +129,7 @@ class Board extends Component {
   return <Cell 
     value={this.state.board[i][j]}
     detectionValue={this.state.detection[i][j]}
-    key={i}
+    key={j}
     onClick={() => this.handleClick(i,j)} 
     onContextMenu={(event) => this.handleRightClick(event,i,j)}
     bombs = {bombChecker(this.state.board,i,j,this.props.cstate.column,this.props.cstate.row)}
