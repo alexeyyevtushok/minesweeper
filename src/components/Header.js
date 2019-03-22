@@ -4,7 +4,7 @@ function Header(props){
   return (
     <div className="gameHeader">
       <h1>Minesweeper game</h1>
-      <button>Play</button>
+      <button onClick={props.onClicked}>{!props.cstate ? 'Play' : 'Stop'}</button>
     </div>
   )
 }

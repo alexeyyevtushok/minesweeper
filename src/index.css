@@ -26,10 +26,10 @@ code {
 
 
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   font-size: 24px;
-  line-height: 40px;
+  line-height: 30px;
   display:inline-block;
   background: #DCDCDC;
   border:1px solid whitesmoke;
@@ -42,7 +42,11 @@ code {
 }
 
 .cell.bomb {
-  background: maroon;
+  background: brown;
+  color:black;
+}
+.cell.bomb::before{
+  content: '☢';
 }
 
 .cell:hover {
@@ -67,6 +71,152 @@ button:hover {
 }
 
 .bombDetected{
+  color:white;
   background:#1E90FF!important;
+}
+
+.bombDetected::before{
+  content: '✔';
+}
+
+@keyframes click-wave {
+  0% {
+    height: 40px;
+    width: 40px;
+    opacity: 0.35;
+    position: relative;
+  }
+  100% {
+    height: 200px;
+    width: 200px;
+    margin-left: -80px;
+    margin-top: -80px;
+    opacity: 0;
+  }
+}
+
+.option-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  position: relative;
+  top: 13.33333px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  transition: all 0.15s ease-out 0s;
+  background: #cbd1d8;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 0.5rem;
+  outline: none;
+  position: relative;
+  z-index: 1000;
+}
+.option-input:hover {
+  background: #1E90FF;
+}
+.option-input:checked {
+  background: #1E90FF;
+}
+.option-input:checked::before {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  content: '✗';
+  display: inline-block;
+  font-size: 26.66667px;
+  text-align: center;
+  line-height: 40px;
+}
+.option-input:checked::after {
+  -webkit-animation: click-wave 0.65s;
+  -moz-animation: click-wave 0.65s;
+  animation: click-wave 0.65s;
+  background: #1E90FF;
   content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+
+.option-input.radio {
+  border-radius: 50%;
+}
+.option-input.radio::after {
+  border-radius: 50%;
+}
+
+.gameEnd {
+  background-color: white;
+  box-shadow:
+  /* The top layer shadow */
+      0 1px 1px rgba(0,0,0,0.15),
+          /* The second layer */
+      0 10px 0 -5px #eee,
+          /* The second layer shadow */
+      0 10px 1px -4px rgba(0,0,0,0.15),
+          /* The third layer */
+      0 20px 0 -10px #eee,
+          /* The third layer shadow */
+      0 20px 1px -9px rgba(0,0,0,0.15);
+  display: inline-block;
+  width: 700px;
+  padding:30px 40px;
+  font-size:20px;
+  transition: all 1s ease;
+}
+
+
+.gameEnd p {
+  padding-bottom: 10px;
+  margin: 0;
+  font-size:18px;
+}
+
+hr {
+  color:blue;
+  width:40%;
+}
+
+.gameEndLabel{
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.flagAmount{
+  color:black;
+  font-weight: bold;
+  font-size:24px;
+}
+
+.gameWin {
+  display: none;
+  background-color: white;
+  box-shadow:
+  /* The top layer shadow */
+      0 1px 1px rgba(0,0,0,0.15),
+          /* The second layer */
+      0 10px 0 -5px #eee,
+          /* The second layer shadow */
+      0 10px 1px -4px rgba(0,0,0,0.15),
+          /* The third layer */
+      0 20px 0 -10px #eee,
+          /* The third layer shadow */
+      0 20px 1px -9px rgba(0,0,0,0.15);
+  padding:10px 100px;
+  font-size:20px;
+  margin:25px 0;
+  transition: all 1s ease;
+}
+
+.displayWin {
+  transition: all 1s ease;
+  display: inline-block;
 }
