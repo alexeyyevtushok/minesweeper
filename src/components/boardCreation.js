@@ -4,23 +4,23 @@ function randomInteger(min, max) {
   return rand;
 }
 
-function boardCreation(columns,rows,bombs){
-  const cellsInfo =[];
-  for (let i = 0; i <columns; i++) {
+function boardCreation(columns, rows, bombs) {
+  const cellsInfo = [];
+  for (let i = 0; i < columns; i++) {
     cellsInfo[i] = [];
     for (let j = 0; j < rows; j++) {
       cellsInfo[i][j] = [];
     }
   }
-  for(let b =0;b<bombs;b++){
-    if(cellsInfo[randomInteger(0,columns-1)][randomInteger(0,rows-1)]==='bomb'){
-      cellsInfo[randomInteger(0,columns-1)][randomInteger(0,rows-1)]='bomb';
+  for (let b = 0; b < bombs; b++) {
+    //if i and j take the same value double times
+    if (cellsInfo[randomInteger(0, columns - 1)][randomInteger(0, rows - 1)] === 'bomb') {
+      cellsInfo[randomInteger(0, columns - 1)][randomInteger(0, rows - 1)] = 'bomb';
     }
-    cellsInfo[randomInteger(0,columns-1)][randomInteger(0,rows-1)]='bomb';
+    cellsInfo[randomInteger(0, columns - 1)][randomInteger(0, rows - 1)] = 'bomb';
   }
   console.log(cellsInfo)
-  return  cellsInfo;
+  return cellsInfo;
 }
-
 
 export default boardCreation;

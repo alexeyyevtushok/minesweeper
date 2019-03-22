@@ -10,20 +10,14 @@ import detectionCreation from './detectionCreation';
 class Board extends Component {
   constructor(props) {
     super(props)
-
-    this.keyCount = 0;
-    this.getKey = this.getKey.bind(this);
-
     this.state = {
-      board: boardCreation(props.cstate.column,props.cstate.row,props.cstate.bombs),
-      detection: detectionCreation(props.cstate.column,props.cstate.row,props.cstate.bombs),
+      board: boardCreation(props.cstate.column,props.cstate.row,props.cstate.bombs), // array of left click
+      detection: detectionCreation(props.cstate.column,props.cstate.row,props.cstate.bombs), // array of right click
       end:'play',
       clicked:0
     }
   }
-  getKey() {
-    return this.keyCount++;
-  }
+  //left click
    handleClick = (i,j) => {
     if(this.state.end !=='play'){
       return;
@@ -135,14 +129,14 @@ class Board extends Component {
   return <Cell 
     value={this.state.board[i][j]}
     detectionValue={this.state.detection[i][j]}
-    key={this.getKey()}
+    key={i}
     onClick={() => this.handleClick(i,j)} 
     onContextMenu={(event) => this.handleRightClick(event,i,j)}
     bombs = {bombChecker(this.state.board,i,j,this.props.cstate.column,this.props.cstate.row)}
     isEnd = {this.state.end}
     />
   }
-  
+  //calculate amout of bomb in every cell
   componentDidMount() {
     for (let i = 0; i < this.props.cstate.column; i++) {
       for (let j = 0; j < this.props.cstate.row; j++) {

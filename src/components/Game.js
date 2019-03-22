@@ -62,7 +62,7 @@ class Game extends Component {
   
     addInput(option){
       var k;
-    k++;
+       k++;
       const lablels = []
         lablels.push(
           <label key={k}>
