@@ -43,6 +43,7 @@ code {
 }
 
 .cell.bomb {
+  
   background: brown;
   color:black;
   -webkit-animation: bomb-detonation 3s ease;
@@ -199,7 +200,7 @@ button:hover {
   width: 700px;
   padding:30px 40px;
   font-size:20px;
-  transition: all 1s ease;
+  transition: all 3s ease;
 }
 
 
