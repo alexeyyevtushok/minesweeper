@@ -16,12 +16,12 @@ function boardCreation(columns, rows, bombs) {
     //if i and j take the same value double times
     const randCol = randomInteger(0, columns - 1);
     const randRow = randomInteger(0, rows - 1);
-    if (cellsInfo[randCol][randRow] === 'bomb') {
+    if (cellsInfo[randCol][randRow] === "bomb") {
       b--;
     }
-    cellsInfo[randCol][randRow] = 'bomb';
+    cellsInfo[randCol][randRow] = "bomb";
   }
-  console.log(cellsInfo)
+  console.log(cellsInfo);
   return cellsInfo;
 }
 
