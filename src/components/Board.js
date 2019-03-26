@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
+
 /* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/sort-comp */
+
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Cell from './Cell';
 import boardCreation from './boardCreation';
@@ -25,6 +26,28 @@ class Board extends Component {
       end: 'play',
       clicked: 0,
     };
+  }
+
+  // calculate amout of bomb in every cell
+  componentDidMount() {
+    const { board } = this.state;
+    for (let i = 0; i < this.column; i += 1) {
+      for (let j = 0; j < this.row; j += 1) {
+        const updatedBoard = board.slice();
+        if (updatedBoard[i][j] !== 'bomb') {
+          updatedBoard[i][j] = bombChecker(
+            board,
+            i,
+            j,
+            this.column,
+            this.row,
+          );
+          this.setState({
+            board: updatedBoard,
+          });
+        }
+      }
+    }
   }
 
   // left click
@@ -121,28 +144,6 @@ class Board extends Component {
     );
   }
 
-  // calculate amout of bomb in every cell
-  componentDidMount() {
-    const { board } = this.state;
-    for (let i = 0; i < this.column; i += 1) {
-      for (let j = 0; j < this.row; j += 1) {
-        const updatedBoard = board.slice();
-        if (updatedBoard[i][j] !== 'bomb') {
-          updatedBoard[i][j] = bombChecker(
-            board,
-            i,
-            j,
-            this.column,
-            this.row,
-          );
-          this.setState({
-            board: updatedBoard,
-          });
-        }
-      }
-    }
-  }
-
   render() {
     // consts
     const { end, clicked } = this.state;
@@ -182,5 +183,11 @@ class Board extends Component {
     );
   }
 }
+
+Board.propTypes = {
+  column: PropTypes.number.isRequired,
+  row: PropTypes.number.isRequired,
+  bombs: PropTypes.number.isRequired,
+};
 
 export default Board;
