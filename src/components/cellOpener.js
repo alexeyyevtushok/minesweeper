@@ -2,35 +2,35 @@ const cellOpener = (i, j, column, rows, array, handleFunc) => {
   if (array[i][j] > 10) {
     return;
   }
-  //down
+  // down
   if (i + 1 < column && array[i + 1][j] < 10) {
     handleFunc(i + 1, j);
   }
-  //top
+  // top
   if (i - 1 >= 0 && array[i - 1][j] < 10) {
     handleFunc(i - 1, j);
   }
-  //left
+  // left
   if (j - 1 >= 0 && array[i][j - 1] < 10) {
     handleFunc(i, j - 1);
   }
-  //right
+  // right
   if (j + 1 < rows && array[i][j + 1] < 10) {
     handleFunc(i, j + 1);
   }
-  //up-right
+  // up-right
   if (j + 1 < rows && i - 1 >= 0 && array[i - 1][j + 1] < 10) {
     handleFunc(i - 1, j + 1);
   }
-  //up-left
+  // up-left
   if (j - 1 >= 0 && i - 1 >= 0 && array[i - 1][j - 1] < 10) {
     handleFunc(i - 1, j - 1);
   }
-  //down-right
+  // down-right
   if (j + 1 < rows && i + 1 < column && array[i + 1][j + 1] < 10) {
     handleFunc(i + 1, j + 1);
   }
-  //down-left
+  // down-left
   if (j - 1 >= 0 && i + 1 < column && array[i + 1][j - 1] < 10) {
     handleFunc(i + 1, j - 1);
   }

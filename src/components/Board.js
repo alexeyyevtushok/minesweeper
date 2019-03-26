@@ -1,129 +1,142 @@
-import React, { Component } from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable react/sort-comp */
+import React, { Component } from 'react';
 
-import Cell from "./Cell";
-import boardCreation from "./boardCreation";
-import detectionCreation from "./detectionCreation";
-import bombChecker from "./bombChecker";
-import cellOpener from "./cellOpener";
+import Cell from './Cell';
+import boardCreation from './boardCreation';
+import detectionCreation from './detectionCreation';
+import bombChecker from './bombChecker';
+import cellOpener from './cellOpener';
 
 class Board extends Component {
   constructor(props) {
     super(props);
+    this.column = props.column;
+    this.row = props.row;
+    this.bombs = props.bombs;
     this.state = {
       board: boardCreation(
-        props.cstate.column,
-        props.cstate.row,
-        props.cstate.bombs
+        this.column,
+        this.row,
+        this.bombs,
       ), // array of left click
-      detection: detectionCreation(props.cstate.column, props.cstate.row), // array of right click
-      end: "play",
-      clicked: 0
+      detection: detectionCreation(this.column, this.row), // array of right click
+      end: 'play',
+      clicked: 0,
     };
   }
-  //left click
+
+  // left click
   handleClick = (i, j) => {
-    if (this.state.end !== "play") {
+    const { end, board, detection } = this.state;
+    if (end !== 'play') {
       return;
     }
     if (
-      this.state.board[i][j] < 10 &&
-      this.state.detection[i][j] !== "bombDetected"
+      board[i][j] < 10
+      && detection[i][j] !== 'bombDetected'
     ) {
-      const updatedBoard = this.state.board.slice();
+      const updatedBoard = board.slice();
       updatedBoard[i][j] += 10;
       this.setState({
-        board: updatedBoard
+        board: updatedBoard,
       });
       cellOpener(
         i,
         j,
-        this.props.cstate.column,
-        this.props.cstate.row,
-        this.state.board,
-        this.handleClick
+        this.column,
+        this.row,
+        board,
+        this.handleClick,
       );
-    } else if (this.state.board[i][j] === "bomb") {
+    } else if (board[i][j] === 'bomb') {
       this.setState({
-        end: "lose"
+        end: 'lose',
       });
     }
   };
 
   handleRightClick = (event, i, j) => {
+    const { end, detection, clicked } = this.state;
     event.preventDefault();
-    const updatedBoard = this.state.detection.slice();
-    if (this.state.end !== "play") {
+    const updatedBoard = detection.slice();
+    if (end !== 'play') {
       return;
     }
     if (
-      this.state.clicked < this.props.cstate.bombs &&
-      this.state.detection[i][j] !== "bombDetected"
+      clicked < this.bombs
+      && detection[i][j] !== 'bombDetected'
     ) {
-      updatedBoard[i][j] = "bombDetected";
-      this.setState({ clicked: this.state.clicked + 1 });
-    } else if (this.state.detection[i][j] === "bombDetected") {
-      updatedBoard[i][j] = "";
-      this.setState({ clicked: this.state.clicked - 1 });
+      updatedBoard[i][j] = 'bombDetected';
+      this.setState({ clicked: clicked + 1 });
+    } else if (detection[i][j] === 'bombDetected') {
+      updatedBoard[i][j] = '';
+      this.setState({ clicked: clicked - 1 });
     }
     this.setState({
-      detection: updatedBoard
+      detection: updatedBoard,
     });
     this.getWinner();
   };
 
   getWinner = () => {
-    var counter = 0;
-    for (let i = 0; i < this.props.cstate.column; i++) {
-      for (let j = 0; j < this.props.cstate.row; j++) {
+    const { board, detection } = this.state;
+    let counter = 0;
+    for (let i = 0; i < this.column; i += 1) {
+      for (let j = 0; j < this.row; j += 1) {
         if (
-          this.state.board[i][j] === "bomb" &&
-          this.state.detection[i][j] === "bombDetected"
+          board[i][j] === 'bomb'
+          && detection[i][j] === 'bombDetected'
         ) {
-          ++counter;
+          counter += 1;
         }
       }
-      if (counter === this.props.cstate.bombs) {
+      if (counter === this.bombs) {
         this.setState({
-          end: "win"
+          end: 'win',
         });
       }
     }
   };
 
   renderCell(i, j) {
+    const { end, board, detection } = this.state;
     return (
       <Cell
-        value={this.state.board[i][j]}
-        detectionValue={this.state.detection[i][j]}
+        value={board[i][j]}
+        detectionValue={detection[i][j]}
         key={j}
         onClick={() => this.handleClick(i, j)}
         onContextMenu={event => this.handleRightClick(event, i, j)}
         bombs={bombChecker(
-          this.state.board,
+          board,
           i,
           j,
-          this.props.cstate.column,
-          this.props.cstate.row
+          this.column,
+          this.row,
         )}
-        isEnd={this.state.end}
+        isEnd={end}
       />
     );
   }
-  //calculate amout of bomb in every cell
+
+  // calculate amout of bomb in every cell
   componentDidMount() {
-    for (let i = 0; i < this.props.cstate.column; i++) {
-      for (let j = 0; j < this.props.cstate.row; j++) {
-        const updatedBoard = this.state.board.slice();
-        if (updatedBoard[i][j] !== "bomb") {
+    const { board } = this.state;
+    for (let i = 0; i < this.column; i += 1) {
+      for (let j = 0; j < this.row; j += 1) {
+        const updatedBoard = board.slice();
+        if (updatedBoard[i][j] !== 'bomb') {
           updatedBoard[i][j] = bombChecker(
-            this.state.board,
+            board,
             i,
             j,
-            this.props.cstate.column,
-            this.props.cstate.row
+            this.column,
+            this.row,
           );
           this.setState({
-            board: updatedBoard
+            board: updatedBoard,
           });
         }
       }
@@ -131,32 +144,38 @@ class Board extends Component {
   }
 
   render() {
-    //consts
+    // consts
+    const { end, clicked } = this.state;
     const grid = [];
-    var flagAmount = this.props.cstate.bombs - this.state.clicked;
-    var isWin = this.state.end === "win" ? "Win" : "Lose";
+    const flagAmount = this.bombs - clicked;
+    const isWin = end === 'win' ? 'Win' : 'Lose';
 
-    var classWin = "gameWin";
-    if (this.state.end === "win" || this.state.end === "lose") {
-      classWin += " displayWin";
+    let classWin = 'gameWin';
+    if (end === 'win' || end === 'lose') {
+      classWin += ' displayWin';
     }
-    //create grid
-    for (let i = 0; i < this.props.cstate.column; i++) {
+    // create grid
+    for (let i = 0; i < this.column; i += 1) {
       const row = [];
-      for (let j = 0; j < this.props.cstate.row; j++) {
+      for (let j = 0; j < this.row; j += 1) {
         row.push(this.renderCell(i, j));
       }
       grid.push(
         <div className="boardRow" key={i}>
           {row}
-        </div>
+        </div>,
       );
     }
     return (
       <div>
-        <div className={classWin}>You {isWin}</div>
+        <div className={classWin}>
+          You
+          {isWin}
+        </div>
         <div className="flagAmount">
-          <div className="cell bombDetected" /> - {flagAmount}
+          <div className="cell bombDetected" />
+          -
+          {flagAmount}
         </div>
         {grid}
       </div>

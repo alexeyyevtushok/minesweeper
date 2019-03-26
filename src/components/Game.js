@@ -1,71 +1,75 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import Header from "./Header";
-import Board from "./Board";
+import Header from './Header';
+import Board from './Board';
 
 class Game extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       game: false,
       column: 10,
       row: 10,
-      bombs: 10
+      bombs: 10,
     };
   }
+
   gameChanger = () => {
-    if (this.state.game) {
+    const { game } = this.state;
+    if (game) {
       this.setState({
-        game: !this.state.game,
+        game: !game,
         column: 10,
         row: 10,
-        bombs: 10
+        bombs: 10,
       });
     }
     this.setState({
-      game: !this.state.game
+      game: !game,
     });
   };
-  //grid size
-  handleOptionChange = event => {
+
+  // grid size
+  handleOptionChange = (event) => {
     switch (event.target.value) {
-      case "Easy":
+      case 'Easy':
         this.setState({
           column: 8,
           row: 8,
-          bombs: 5
+          bombs: 5,
         });
         break;
-      case "Hard":
+      case 'Hard':
         this.setState({
           column: 16,
           row: 16,
-          bombs: 40
+          bombs: 40,
         });
         break;
-      case "Impossible":
+      case 'Impossible':
         this.setState({
           column: 16,
           row: 32,
-          bombs: 99
+          bombs: 99,
         });
         break;
       default:
         this.setState({
           column: 10,
           row: 10,
-          bombs: 10
+          bombs: 10,
         });
     }
   };
 
   addInput(option) {
-    var k;
-    k++;
+    let k;
     const lablels = [];
+    // eslint-disable-next-line prefer-const
+    k += 1;
     lablels.push(
-      <label key={k}>
+      <label key={k} htmlFor="gameEnd">
         <input
           className="option-input radio"
           type="radio"
@@ -74,30 +78,37 @@ class Game extends Component {
           onChange={this.handleOptionChange}
         />
         {option}
-      </label>
+      </label>,
     );
     return lablels;
   }
+
   render() {
-    console.log(this.state);
-    if (this.state.game) {
+    const {
+      game, column, row, bombs,
+    } = this.state;
+    if (game) {
       return (
         <div className="main">
-          <Header onClicked={this.gameChanger} cstate={this.state.game} />
-          <Board cstate={this.state} />
+          <Header onClicked={this.gameChanger} cstate={game} />
+          <Board
+            column={column}
+            row={row}
+            bombs={bombs}
+          />
         </div>
       );
     }
     return (
       <div className="main">
-        <Header onClicked={this.gameChanger} cstate={this.state.game} />
+        <Header onClicked={this.gameChanger} cstate={game} />
         <form className="gameEnd">
           <p>Default: Normal</p>
           <hr />
           <div className="gameEndLabel">Choose game style: </div>
-          {this.addInput("Easy")}
-          {this.addInput("Hard")}
-          {this.addInput("Impossible")}
+          {this.addInput('Easy')}
+          {this.addInput('Hard')}
+          {this.addInput('Impossible')}
         </form>
       </div>
     );
