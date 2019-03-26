@@ -1,30 +1,47 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function Cell(props){
+function Cell({
+  value, isEnd, detectionValue, onClick, onContextMenu, bombs,
+}) {
   let playerClass = 'cell';
-  //click
-  if(props.value !== undefined && typeof(props.value) === 'number' && props.value>=10 ) {
+  // click
+  if (value !== undefined && typeof (value) === 'number' && value >= 10) {
     playerClass += ' clicked';
   }
-  //bomb
-  if(props.isEnd === 'lose' && props.value ==='bomb') {
+  // bomb
+  if (isEnd === 'lose' && value === 'bomb') {
     playerClass += ' bomb';
-    //detect bomb
-  } else if(props.detectionValue ==='bombDetected'){
+    // detect bomb
+  } else if (detectionValue === 'bombDetected') {
     playerClass += ' bombDetected';
   }
 
   let cellValue;
-  if(typeof(props.value) === 'number' && props.value>10 && props.detectionValue!=='bombDetected')
-    cellValue = props.bombs;
+  if (typeof (value) === 'number' && value > 10 && detectionValue !== 'bombDetected') { cellValue = bombs; }
 
-  return(
-    <div 
-    className={playerClass} 
-    onClick={props.onClick}
-    onContextMenu={props.onContextMenu}
-    >{cellValue}</div>
+  return (
+    <div
+      className={playerClass}
+      onClick={onClick}
+      onContextMenu={onContextMenu}
+      role="button"
+    >
+      {cellValue}
+    </div>
   );
 }
+
+Cell.propTypes = {
+  value: PropTypes.number.isRequired,
+  isEnd: PropTypes.bool.isRequired,
+  detectionValue: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
+  bombs: PropTypes.number.isRequired,
+};
+
 
 export default Cell;
